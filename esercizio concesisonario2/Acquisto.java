@@ -13,7 +13,7 @@ class Login {
     int budget;
     int id;
     int spesa;
-    int ultimoid=0;
+    int ultimoid = 0;
 
     // costruttore 1: tutti i parametri
     public Login(String nome, String password, int budget, int spesa, ArrayList<String> storico) {
@@ -42,11 +42,11 @@ class Login {
     }
 
     public void aggiornabudget(int nuovobud) {
-        this.budget=nuovobud;
+        this.budget = nuovobud;
     }
 
     public void aggiornaspesa(int nuovaspesa) {
-        this.spesa=nuovaspesa;
+        this.spesa = nuovaspesa;
     }
 
     // getnome, getbudget getstorico
@@ -71,7 +71,7 @@ class Login {
     }
 
     Scanner parole = new Scanner(System.in);
-    // metodo registrazione
+    // registrazione direttamente nel main
 
     // metodo login
     // controllo se nome e pass corrispondon
@@ -101,17 +101,17 @@ class Catalogo extends Login {
         super(nome, password, budget);
     }
 
-    public ArrayList<String> arrayLmacchine(){
+    public ArrayList<String> arrayLmacchine() {
         ArrayList<String> macchine = new ArrayList<String>();
 
         macchine.add("Volvo");
         macchine.add("BMW");
         macchine.add("Ford");
         macchine.add("Mazda");
-         return macchine;
+        return macchine;
     }
 
-    public ArrayList<Integer> arrayLmacchineprezzi(){
+    public ArrayList<Integer> arrayLmacchineprezzi() {
         ArrayList<Integer> macchineprezzi = new ArrayList<Integer>();
         macchineprezzi.add(20000);
         macchineprezzi.add(35000);
@@ -121,9 +121,7 @@ class Catalogo extends Login {
         return macchineprezzi;
     }
 
-    
-
-    public ArrayList<String> arrayLmoto(){
+    public ArrayList<String> arrayLmoto() {
         ArrayList<String> moto = new ArrayList<>();
         moto.add("Ducati");
         moto.add("Kawasaki");
@@ -132,7 +130,7 @@ class Catalogo extends Login {
         return moto;
     }
 
-    public ArrayList<Integer> arrayLmotoprezzi(){
+    public ArrayList<Integer> arrayLmotoprezzi() {
         ArrayList<Integer> motoprezzi = new ArrayList<>();
         motoprezzi.add(2000);
         motoprezzi.add(3500);
@@ -142,11 +140,9 @@ class Catalogo extends Login {
         return motoprezzi;
     }
 
-
-
     public void stampalistaautomoto() {
-        // array o arraylist(nome, prezzo, ...) 
-        // print 
+        
+        // print
         ArrayList<String> macchine = arrayLmacchine();
         String volvo = macchine.get(0);
         String bmw = macchine.get(1);
@@ -158,8 +154,6 @@ class Catalogo extends Login {
         int pbmw = macchineprezzi.get(1);
         int pford = macchineprezzi.get(2);
         int pmazda = macchineprezzi.get(3);
-
-       
 
         ArrayList<String> moto = arrayLmoto();
         String ducati = moto.get(0);
@@ -182,75 +176,263 @@ class Catalogo extends Login {
 
     }
 
-    // metodo per diminuire parametri(budget e prezzo)
-
     
 
-    //metodo con switch
-    void sceltaclienteSwitch(){
+    // metodo con switch
+    void sceltaclienteSwitch() {
         ArrayList<String> macchine = arrayLmacchine();
         ArrayList<Integer> macchineprezzi = arrayLmacchineprezzi();
-        //aggiungere moto
+        ArrayList<String> moto = arrayLmoto();
+        ArrayList<Integer> motoprezzi = arrayLmotoprezzi();
+       
         Scanner numeri = new Scanner(System.in);
-        System.out.println("scrivere i vari println con le sclete associate ");
-        System.out.println("premere 1 per "+ macchine.get(0));
 
+        int w = 0;
+        while (w < 1){
+            System.out.println(
+                    "scrivere auto se si desidera acquistare un auto, moto se si desidera acquistare una moto:");
+            String scelta = numeri.nextLine();
+            if (scelta.equals("auto")) {
+
+                System.out.println("Premi i codici corrispondenti al veicolo che si desidera acquistare ");
+                System.out.println("premere 1 per " + macchine.get(0));
+                System.out.println("premere 2 per " + macchine.get(1));
+                System.out.println("premere 3 per " + macchine.get(2));
+                System.out.println("premere 4 per " + macchine.get(3));
+                w = 2;
+            } else if (scelta.equals("moto")) {
+                System.out.println("Premi i codici corrispondenti al veicolo che si desidera acquistare ");
+                System.out.println("premere 5 per " + moto.get(0));
+                System.out.println("premere 6 per " + moto.get(1));
+                System.out.println("premere 7 per " + moto.get(2));
+                System.out.println("premere 8 per " + moto.get(3));
+                w = 2;
+
+            } else {
+                System.out.println("Errore, effettuare una scelta valida");
+            }
+        }
+
+        int menu = numeri.nextInt();
+        switch(menu){
+            
+            case 1:
+                if ((budget - macchineprezzi.get(0))<0){
+                    System.out.println("non hai abbastanza budget");
+                    break;
+                }else{
+                aggiungiveicolo(macchine.get(0));
+                aggiornabudget(budget - macchineprezzi.get(0));
+                aggiornaspesa(spesa + macchineprezzi.get(0));
+                break;}
+
+            case 2:
+            if ((budget - macchineprezzi.get(1))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(macchine.get(1));
+            aggiornabudget(budget - macchineprezzi.get(1));
+            aggiornaspesa(spesa+macchineprezzi.get(1));
+            break;}
+
+            case 3:
+            if ((budget - macchineprezzi.get(2))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(macchine.get(2));
+            aggiornabudget(budget - macchineprezzi.get(2));
+            aggiornaspesa(spesa+macchineprezzi.get(2));
+            break;}
+
+            case 4:
+            if ((budget - macchineprezzi.get(3))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(macchine.get(3));
+            aggiornabudget(budget - macchineprezzi.get(3));
+            aggiornaspesa(spesa+macchineprezzi.get(3));
+            break;}
+
+            case 5:
+            if ((budget - motoprezzi.get(0))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(moto.get(0));
+            aggiornabudget(budget - motoprezzi.get(0));
+            aggiornaspesa(spesa+motoprezzi.get(0));
+            break;}
+
+            case 6:
+            if ((budget - motoprezzi.get(1))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(moto.get(1));
+            aggiornabudget(budget - motoprezzi.get(1));
+            aggiornaspesa(spesa+motoprezzi.get(1));
+            break;}
+            case 7:
+            if ((budget - motoprezzi.get(2))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(moto.get(2));
+            aggiornabudget(budget - motoprezzi.get(2));
+            aggiornaspesa(spesa+motoprezzi.get(2));
+            break;}
+            case 8:
+            if ((budget - motoprezzi.get(3))<0){
+                System.out.println("non hai abbastanza budget");
+                break;
+            }else{
+            aggiungiveicolo(moto.get(3));
+            aggiornabudget(budget - motoprezzi.get(3));
+            aggiornaspesa(spesa+motoprezzi.get(3));
+            break;}
+    }
+    }
+}
+
+class Promozioni extends Catalogo {
+    public Promozioni(String nome, String password, int budget) {
+        super(nome, password, budget);
+    }
+
+    void sceltaclienteSwitchpromo() {
+        ArrayList<String> macchine = arrayLmacchine();
+        ArrayList<Integer> macchineprezzi = arrayLmacchineprezzi();
+        ArrayList<String> moto = arrayLmoto();
+        ArrayList<Integer> motoprezzi = arrayLmotoprezzi();
+       
+        Scanner numeri = new Scanner(System.in);
+
+        int w = 0;
+        while (w < 1)
+        {
+            System.out.println(
+                    "scrivere auto se si desidera acquistare un auto, moto se si desidera acquistare una moto:");
+            String scelta = numeri.nextLine();
+            if (scelta.equals("auto")) {
+
+                System.out.println("Premi i codici corrispondenti al veicolo che si desidera acquistare ");
+                System.out.println("premere 1 per " + macchine.get(0));
+                System.out.println("premere 2 per " + macchine.get(1));
+                System.out.println("premere 3 per " + macchine.get(2));
+                System.out.println("premere 4 per " + macchine.get(3));
+                w = 2;
+            } else if (scelta.equals("moto")) {
+                System.out.println("Premi i codici corrispondenti al veicolo che si desidera acquistare ");
+                System.out.println("premere 5 per " + moto.get(0));
+                System.out.println("premere 6 per " + moto.get(1));
+                System.out.println("premere 7 per " + moto.get(2));
+                System.out.println("premere 8 per " + moto.get(3));
+                w = 2;
+
+            } else {
+                System.out.println("Errore, effettuare una scelta valida");
+            }
+        }
 
         int menu = numeri.nextInt();
         switch(menu){
             case 1:
+            if ((budget - macchineprezzi.get(0)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {    
             aggiungiveicolo(macchine.get(0));
-            aggiornabudget(budget - macchineprezzi.get(0));
-            aggiornaspesa(spesa+macchineprezzi.get(0));
-            break;
+            aggiornabudget(budget - macchineprezzi.get(0)/2);
+            aggiornaspesa(spesa+macchineprezzi.get(0)/2);
+            break;}
 
-            //fare gli altri casi
+            case 2:
+            if ((budget - macchineprezzi.get(1)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+            aggiungiveicolo(macchine.get(1));
+            aggiornabudget(budget - macchineprezzi.get(1)/2);
+            aggiornaspesa(spesa+macchineprezzi.get(1)/2);
+            break;}
 
+            case 3:
+            if ((budget - macchineprezzi.get(2)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+            aggiungiveicolo(macchine.get(2));
+            aggiornabudget(budget - macchineprezzi.get(2)/2);
+            aggiornaspesa(spesa+macchineprezzi.get(2)/2);
+            break;}
+
+            case 4:
+            if ((budget - macchineprezzi.get(3)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+            aggiungiveicolo(macchine.get(3));
+            aggiornabudget(budget - macchineprezzi.get(3)/2);
+            aggiornaspesa(spesa+macchineprezzi.get(3)/2);
+            break;}
+
+            case 5:
+            if ((budget - motoprezzi.get(0)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+                aggiungiveicolo(moto.get(0));
+                aggiornabudget(budget - motoprezzi.get(0) / 2);
+                aggiornaspesa(spesa + motoprezzi.get(0) / 2);
+                break;}
+
+            case 6:
+            if ((budget - motoprezzi.get(1)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+                aggiungiveicolo(moto.get(1));
+                aggiornabudget(budget - motoprezzi.get(1) / 2);
+                aggiornaspesa(spesa + motoprezzi.get(1) / 2);
+                break;}
+            case 7:
+            if ((budget - motoprezzi.get(2)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+                aggiungiveicolo(moto.get(2));
+                aggiornabudget(budget - motoprezzi.get(2) / 2);
+                aggiornaspesa(spesa + motoprezzi.get(2) / 2);
+                break;}
+            case 8:
+            if ((budget - motoprezzi.get(3)/2)<0){
+                System.out.println("non hai abbastanza budget");
+                break;}
+            else {  
+                aggiungiveicolo(moto.get(3));
+                aggiornabudget(budget - motoprezzi.get(3) / 2);
+                aggiornaspesa(spesa + motoprezzi.get(3) / 2);
+                break;}
         }
     }
 
-    void sceltacliente(){
-        
-
-        if (getStorico().size()<2){
-            sceltaclienteSwitch();
-        } else{
-            
-            System.out.println("sopra a 2");
-            //stampa questo all'infinito (andrà bloccato il while nel main che è sempre true per prova)
-
-            }
-        
-    }
-    
-
-    
 }
-
-class Promozioni extends Catalogo { //qui riprendiamo lo switch sopra ma lo facciamo con un metodo di macchine prezzi e moto prezzi che fa .set  dull'arraylist e dimezza ii prezzi
-    public Promozioni (String nome, String password, int budget) {
-        super(nome, password, budget);
-    }
-// salvo nel login il nuovo budget e storico
-// stampa dei get del login
-    void sceltaclienteSwitch(){
-        
-    }
-
-
-}
-
 
 class Acquisto {
 
-      
-
     public static void main(String[] args) {
-        
 
         Scanner parole = new Scanner(System.in);
         Scanner numeri = new Scanner(System.in);
+        boolean loop=true;
+        boolean loop2=true;
 
+        
+        while(loop){
+        //registrazione
         System.out.println("registrati");
         System.out.println("inserisci nome");
         String rispostaNome = parole.nextLine();
@@ -258,21 +440,46 @@ class Acquisto {
         String rispostaPass = parole.nextLine();
         System.out.println("inserisci budget");
         int rispostaBudget = numeri.nextInt();
-        
-       
-        
- 
 
-        Catalogo catalogo = new Catalogo(rispostaNome, rispostaPass, rispostaBudget);
-        catalogo.controllologin();
-        catalogo.stampalistaautomoto();
-        //System.out.println(catalogo.getId());
-        while(true){
-        catalogo.sceltacliente();
-        System.out.println(catalogo.getStorico());
-        System.out.println(catalogo.getBudget());
-        System.out.println(catalogo.getSpesa());
-        }
-    }
     
-}
+
+        // oggetti
+        Catalogo catalogo = new Catalogo(rispostaNome, rispostaPass, rispostaBudget);
+        Promozioni promozioni = new Promozioni(rispostaNome, rispostaPass, rispostaBudget);
+
+        catalogo.controllologin();
+        
+        
+while(loop2){
+        System.out.println("vuoi acquistare? si/premi altro per uscire");
+        String rispostaacquisto=parole.nextLine();
+        if (rispostaacquisto.equalsIgnoreCase("si")){
+            catalogo.stampalistaautomoto();
+        
+
+        if (catalogo.getStorico().size() < 3) {
+            //System.out.println("errore qui?");
+            catalogo.sceltaclienteSwitch();
+            System.out.println("il tuo storico è: "+catalogo.getStorico());
+            System.out.println("il tuo buddet restante è: "+catalogo.getBudget());
+            System.out.println("finora hai speso: "+catalogo.getSpesa());
+        } else {
+            System.out.println("Hai diritto allo sconto del 50% sul prossimo acquisto");
+            promozioni.sceltaclienteSwitchpromo();
+            System.out.println("il tuo storico è: "+catalogo.getStorico()+promozioni.getStorico());
+            System.out.println("il tuo buddet restante è: "+catalogo.getBudget()+promozioni.getBudget());//non funz
+            System.out.println("finora hai speso: "+catalogo.getSpesa()+promozioni.getSpesa()); //non funz
+         
+        }
+    } //chiuso if rispostaacquisto 
+    else{
+        loop2=false;
+        loop=false;
+        
+    }
+} //chiuso while loop2
+    } //chiuso while loop
+
+} //chiusura main
+
+}//chiusura class acquisto
